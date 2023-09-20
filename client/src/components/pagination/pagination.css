@@ -1,0 +1,8 @@
+.pagination{
+      display: flex;
+      flex-wrap: wrap; /* Esto permite que los elementos se muevan a una segunda línea si no caben en la primera */
+      margin-top: 20px;
+      justify-content: flex-start; /* Alinea los botones al principio de la línea principal (horizontalmente) */
+    }
+
+    

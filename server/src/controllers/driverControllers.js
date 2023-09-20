@@ -14,6 +14,7 @@ const getAllDriversCtrl=async()=>{
     surname: driver.name?.surname,
     image:driver.image?.url ? driver.image?.url:"https://storage.googleapis.com/pai-images/c9c952618607461d8b5d04ec86012661.jpeg",
     teams:driver.teams,
+    dob:driver.dob,
     origin:"Api"
   }))
 
@@ -31,8 +32,16 @@ const getAllDriversCtrl=async()=>{
 ///---search drivers by name ---///
 const getByNameCtrl= async(name)=>{
   const nameToSearch= await name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-  const getByNameApi=(await axios.get(`${URL_NAME}${nameToSearch}`)).data
-  
+  const {data}=await axios.get(`${URL_NAME}${nameToSearch}`)
+  const getbyNameApi=data.map(driver=>({
+    id:driver.id,
+    name:driver.name?.forename,
+    surname: driver.name?.surname,
+    image:driver.image?.url ? driver.image?.url:"https://storage.googleapis.com/pai-images/c9c952618607461d8b5d04ec86012661.jpeg",
+    teams:driver.teams,
+    dob:driver.dob,
+    origin:"Api"
+  }))
   const getInfoDb= await Driver.findAll({
     include:{
         model:Team,
@@ -48,10 +57,9 @@ const getByNameCtrl= async(name)=>{
     })
 
   
-const allByNames= [...getByNameApi,...getByNameDb]
+const allByNames= [...getbyNameApi,...getByNameDb]
 
 if( allByNames.length > 15 ) return allByNames.slice(0,14)
-else if(allByNames.length===0) return 'There are no matches for your search request'
 else return allByNames
 };
 
@@ -68,8 +76,17 @@ const getDetailCtrl=async(id)=>{
         return idDbInfo; 
     }else{
       const {data}= await axios.get(URL);
-      const idApi= data?.find(driver=>driver.id===parseInt(id))
-      console.log(idApi)
+      const idApiInfo= data?.find(driver=>driver.id===parseInt(id))
+      const idApi= {    
+        id:idApiInfo.id,
+        name:idApiInfo.name?.forename,
+        surname: idApiInfo.name?.surname,
+        image:idApiInfo.image?.url ? idApiInfo.image?.url:"https://storage.googleapis.com/pai-images/c9c952618607461d8b5d04ec86012661.jpeg",
+        nationality: idApiInfo.nationality,
+        description: idApiInfo.description,
+        dob:idApiInfo.dob,
+        teams:idApiInfo.teams,
+        origin:"Api"}
       return idApi;
     }
 }

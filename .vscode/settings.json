@@ -1,0 +1,5 @@
+{
+    "plpgsqlLanguageServer.database": "drivers",
+    "plpgsqlLanguageServer.password": "1234",
+    "plpgsqlLanguageServer.user": "localhost"
+}
