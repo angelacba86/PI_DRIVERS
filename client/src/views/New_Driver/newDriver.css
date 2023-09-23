@@ -1,0 +1,53 @@
+/* Clases CSS personalizadas para el formulario */
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .form-input-date {
+    width: 100%; /* O el ancho deseado */
+    padding: 10px; /* El espaciado interior deseado */
+    margin-bottom: 10px; /* El espaciado inferior deseado */
+    border: 1px solid #ccc; /* Borde del campo */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+  .form-input-description {
+    width: 100%; /* Ancho completo */
+    padding: 10px; /* Espaciado interior */
+    margin-bottom: 10px; /* Espaciado inferior */
+    border: 1px solid #ccc; /* Borde del campo */
+    border-radius: 5px; /* Bordes redondeados */
+    height: 100px; /* Altura deseada */
+  }
+  
+  .form-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Estilo para el botón al pasar el cursor */
+  .form-button:hover {
+    background-color: #0056b3;
+  }
+  .form-error{
+    color:red
+  }

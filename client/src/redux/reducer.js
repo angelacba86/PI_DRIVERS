@@ -6,6 +6,7 @@ import { GET_ALL_DRIVERS,
         CLEAR_DETAIL,
         TEAM_LIST,
         FILTER_BY_TEAMS,
+        FILTER_BY_ORIGIN,
         ORDER_BY
      } from "./actions_types";
 
@@ -27,7 +28,7 @@ const reducer = ( state= initialState, action)=>{
     case GET_DRIVERS_BY_NAME:
         return{
             ...state,
-            allDrivers:action.payload ? action.payload : [],
+            allDrivers:action.payload.length>0 ? action.payload : [],
             filteredDrivers: [],
             results: action.payload.length > 0 ?`${action.payload.length} results for "${action.searchingName}"` : "",
             noInfo: action.payload.length === 0 ? "no driversfound" : ""
@@ -49,13 +50,13 @@ const reducer = ( state= initialState, action)=>{
         }   
     case FILTER_BY_TEAMS:
         const teamName= action.payload;
-        const driversToShow= state.filteredDrivers.length > 0 ? state.filteredDrivers : state.allDrivers
+        const teamDriversToShow= state.filteredDrivers?.length > 0 ? state.filteredDrivers : state.allDrivers
         if(teamName ==="") return {
             ...state,
             filteredDrivers: state.allDrivers
         } 
         else{
-            const filteredDrivers = driversToShow?.filter(driver => {
+            const filteredDrivers =  teamDriversToShow?.filter(driver => {
                 const teams = driver.teams?.split(',').map(team => team.trim().toLowerCase());
                 const lowercaseTeamName = teamName.toLowerCase();              
                 return teams?.includes(lowercaseTeamName);
@@ -67,6 +68,27 @@ const reducer = ( state= initialState, action)=>{
             noInfo: filteredDrivers.length === 0 ? "No Drivers found with this temperament" : ""
           }
         }
+    case FILTER_BY_ORIGIN:
+        const origin=action.payload;
+        const originDriverToShow= state.filteredDrivers?.length > 0 ? state.filteredDrivers : state.allDrivers
+    if(origin ==="" ){ return {
+        ...state,
+        filteredDrivers:state.AllDrivers
+         } 
+    }else if(origin==="Created"){
+        const originbyDb= originDriverToShow?.filter(driver => driver.origin ==="Created");
+        return{
+            ...state,
+        filteredDrivers: originbyDb,
+        noInfo: originbyDb.length===0 ? "No created drivers were found" : ""
+        }
+    } else if (origin==="Api"){
+    const originByApi= originDriverToShow?.filter(driver=> driver.origin === "Api" )
+    return {
+        ...state,
+        filteredDrivers: originByApi,
+        noInfo: originByApi.length ===0 ? "No Api drivers were found" : "" 
+    }}
 
     case ORDER_BY:
 

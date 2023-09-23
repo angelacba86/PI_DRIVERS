@@ -26,7 +26,7 @@ const ByTeams= ({setCurrentPage})=>{
     return (
        <div>
          <select onChange={handleSelect}>
-            <option value='' defaultValue>All Teams</option>
+            <option value='' defaultValue>Filter By Teams</option>
             {listToShow?.map(team => (
                <option key={team.id} value={team.name}>{team.name}</option>
             ))}

@@ -4,13 +4,15 @@ import { GET_ALL_DRIVERS,
          CLEAR_DETAIL,
          ORDER_BY,
          FILTER_BY_TEAMS,
-        //  FILTER_BY_ORIGIN,
-         TEAM_LIST
+         FILTER_BY_ORIGIN,
+         TEAM_LIST,
+         NEW_DRIVER
  } from "./actions_types";
 import axios from 'axios'
 
 const URL='http://localhost:3001/driver/'
 const URL_TEAMS= 'http://localhost:3001/team'
+
 
 export const getAllDrivers=()=> async dispatch => {
     try {
@@ -68,10 +70,26 @@ export const filterbyTeam= (teamName)=> {
         payload:teamName
     })
 }
-
+export const filterByOrigin = (origin) =>{
+    return({
+        type:FILTER_BY_ORIGIN,
+        payload:origin
+    })
+}
 export const orderBy=(order)=>{
     return({
         type:ORDER_BY,
         payload:order
     })
 }
+export const postNewDriver=(form)=> async dispatch => {
+    try {
+        await axios.post(URL, form);
+        dispatch({
+            type:NEW_DRIVER,
+            payload:form
+        });
+    } catch (error) {
+        throw new Error(error.message)
+    }
+} 

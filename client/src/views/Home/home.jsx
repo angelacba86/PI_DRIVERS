@@ -19,7 +19,7 @@ const Home=({currentPage,setCurrentPage})=>{
 
     ///--- Pagination ---///
 
-    const driversToShow= filteredDrivers.length ? filteredDrivers : allDrivers;
+    const driversToShow= filteredDrivers?.length ? filteredDrivers : allDrivers;
     const driversPerPage =9;
     const totalPages= Math.ceil(driversToShow.length / driversPerPage);
     const startIndex = (currentPage - 1)* driversPerPage;

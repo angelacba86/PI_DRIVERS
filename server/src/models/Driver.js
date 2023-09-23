@@ -14,14 +14,33 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate:{
+        len:{
+          arg:[3,15],
+          msg:"Name must have between 3 and 15 characters."
+        }
+      }
     },
     surname:{
       type:DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      validate:{
+        len:{
+          arg:[3,15],
+          msg:"The surname must have between 3 and 15 characters."
+        }
+      }
     },
     description:{
       type:DataTypes.STRING,
       allowNull:false,
+      maxLength: 500,
+      validate:{
+        len:{
+          arg:[10],
+          msg:"The description must have at least 10 characters ."
+        }
+      }
     },
     image:{
       type:DataTypes.STRING,
@@ -30,11 +49,23 @@ module.exports = (sequelize) => {
     },
     nationality:{
       type:DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      validate:{
+        len:{
+          arg:[5],
+          msg:"Nationality must have at least 5 characters"
+        }
+      }
     },
     dob:{
       type:DataTypes.DATEONLY,
-      allowNull:false
+      allowNull:false,
+      validate:{
+        isBefore: {
+          args: '2005-09-02', // Debe ser un día después de la fecha límite
+          msg: "They must have been born on or before 2005-09-01."
+        }
+      }
     },
     origin:{
       type:DataTypes.STRING,

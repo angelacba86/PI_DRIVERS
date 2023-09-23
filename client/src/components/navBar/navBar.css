@@ -1,0 +1,16 @@
+.navBarContainer{
+    background: whitesmoke;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: auto;
+    /* max-height: 30px; */
+}
+.navBarMenus{
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: center;
+    gap:1em;
+    margin: 0 2%;
+    padding: 2%;
+}

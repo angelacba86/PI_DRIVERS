@@ -8,11 +8,12 @@ const DriverContainer = ({ currentDriver }) => {
 if(currentDriver.length === 0) return <p>Loading...</p>
 return (
     <div className='driverContainer'>
-      {currentDriver.map(({ id, name, image, teams, origin, dob }) => (
+      {currentDriver.map(({ id, name, image, teams, origin, dob,surname }) => (
         <Driver
           key={id}
           id={id}
           name={name}
+          surname={surname}
           image={image}
           teams={teams}
           origin={origin}

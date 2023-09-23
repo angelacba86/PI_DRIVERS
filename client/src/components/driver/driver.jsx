@@ -2,19 +2,18 @@
  import '../driver/driver.css'
  import { NavLink } from 'react-router-dom';
 
-const Driver=({id,image,name,teams,origin,dob})=>{
+const Driver=({id,image,name,teams,origin,dob,surname})=>{
 
     return(
         <div className='driverCard' key={id}  value={dob}>
-        <NavLink to={`${id}`}>
-        <div className='imagen-contenedor'><img className='imagen'src={image} alt={name}/></div>
+        <div className='imagen-contenedor'>
+            <div className='origin'><p>{origin}</p></div>
+            <img className='imagen'src={image} alt={name}/></div>
         <div className='texto-contenedor'>
-        <p>{name}</p>
+        <h3>{`${name} ${surname}`}</h3>
         <p>Teams:{teams}</p>
-        <p>Origin:{origin}</p>
-
+        <NavLink to={`${id}`}><button className='detail-button'>more...</button></NavLink>
         </div>
-        </NavLink>
         </div>
     )
 };
