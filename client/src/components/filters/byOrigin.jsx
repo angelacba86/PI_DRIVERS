@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import './filters.css'
 import { useDispatch } from "react-redux";
 import { filterByOrigin } from "../../redux/actions";
 const ByOrigin= ({setCurrentPage})=>{
@@ -12,8 +13,8 @@ const ByOrigin= ({setCurrentPage})=>{
 
  return (
     <div>
-      <select onChange={handleSelect}>
-         <option value='' defaultValue>Filter by Origin</option>
+      <select onChange={handleSelect} className='select'>
+         <option value=''>All Origin</option>
          <option value='API'>API</option>
          <option value='DB'>DB</option>
       </select>

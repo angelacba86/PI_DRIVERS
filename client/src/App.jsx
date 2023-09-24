@@ -10,13 +10,14 @@ import NavBar from './components/navBar/navBar';
 function App() {
   const { pathname } = useLocation();
   const [currentPage, setCurrentPage] = useState(1); 
+  const [startPage, setStartPage] = useState(1);
   const [name,setName] = useState("");
   return (
     <div>
       {pathname !== '/' && <NavBar setCurrentPage={setCurrentPage} currentPage={currentPage} name={name} setName={setName} />}
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route path='/home' element={<Home setCurrentPage={setCurrentPage} currentPage={currentPage} />} />
+        <Route path='/home' element={<Home setCurrentPage={setCurrentPage} currentPage={currentPage} startPage={startPage} setStartPage={setStartPage} />} />
         <Route path='/home/:id' element={<Detail />} />
         <Route path='/newDriver' element={<NewDriver />} />
       </Routes>

@@ -1,0 +1,11 @@
+/* 
+    .centered-container {
+     width: 100%;
+     height: auto;
+     display: flex;
+     flex-direction: column;
+     justify-content: center; 
+     background: rgb(18,18,18);
+     background: linear-gradient(45deg, rgba(18,18,18,1) 0%, rgba(106,100,100,1) 59%, rgba(136,134,134,1) 100%);
+ 
+    } */

@@ -12,9 +12,9 @@ const SearchBar= ({ name, setName, setCurrentPage })=>{
         }
 
     return (
-        <div>
-            <input  type= 'search' value ={name} onChange={handleName} placeholder="Search driver's name Here"></input>
-            <button onClick={()=>handleSubmit(name)}>Search</button>
+        <div className='searchContainer'>
+            <input  type= 'search' value ={name} onChange={handleName} placeholder="Search Here"></input>
+            <button className='search-button' onClick={()=>handleSubmit(name)}>Search</button>
         </div>
     )
 };

@@ -1,16 +1,70 @@
 .navBarContainer{
-    background: whitesmoke;
     display: flex;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
-    overflow: auto;
-    /* max-height: 30px; */
+    background: rgb(33, 32, 32);
 }
-.navBarMenus{
+.logo-navbar{
+    max-width: 8rem;
+    max-height: auto;
+    margin:2rem;
+} 
+ .navBarMenus{
     display: flex;
-    /* justify-content: space-around; */
+    justify-content: space-between;
+    width: 15rem;
+}
+.menu a {
+    display: flex;
+    white-space: nowrap;
+    padding: 0.3rem;
+    color: red;
+    margin: 2rem;
+    position: relative;
+    text-decoration: none; /* Evita que el enlace tenga subrayado predeterminado */
+}
+
+.menu a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background: red;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.menu a:hover::after {
+    width: 100%;
+}
+
+.menu.disable a {
+    pointer-events: none;
+    cursor: default;
+}
+
+.menu.disable a::after {
+    width: 100%;
+}
+
+.navBarFiltros{
+    display: flex;
     align-items: center;
     gap:1em;
     margin: 0 2%;
     padding: 2%;
 }
+
+/* 
+max-width: 1280px;
+min-width: 320px; */
+
+/* .navBarMenus{
+    display: flex;
+    align-items: center;
+    gap:1em;
+    margin: 0 2%;
+    padding: 2%;
+} */

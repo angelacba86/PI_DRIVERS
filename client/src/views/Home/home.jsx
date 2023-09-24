@@ -6,7 +6,7 @@ import { getAllDrivers } from '../../redux/actions';
 import DriverContainer from '../../components/driversContainer/driversContainer';
 import Pagination from '../../components/pagination/pagination';
 
-const Home=({currentPage,setCurrentPage})=>{
+const Home=({currentPage,setCurrentPage,startPage,setStartPage})=>{
 
     const allDrivers = useSelector(state=> state.allDrivers)
     const filteredDrivers = useSelector(state => state.filteredDrivers)
@@ -21,19 +21,25 @@ const Home=({currentPage,setCurrentPage})=>{
 
     const driversToShow= filteredDrivers?.length ? filteredDrivers : allDrivers;
     const driversPerPage =9;
+    const pagesToShow = 12;
     const totalPages= Math.ceil(driversToShow.length / driversPerPage);
     const startIndex = (currentPage - 1)* driversPerPage;
     const endIndex = startIndex + driversPerPage;
     let currentDriver = driversToShow.slice(startIndex,endIndex);
 
-    const pageHandler = (pageNumber)=>{
-        setCurrentPage(pageNumber)
+    const pageHandler = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        if (pageNumber < startPage) {
+            setStartPage(prevStartPage => prevStartPage - pagesToShow);
+        } else if (pageNumber >= startPage + pagesToShow) {
+            setStartPage(prevStartPage => prevStartPage + pagesToShow);
+        }
     }
 
     return(
-        <div>
+        <div className='centered-container'>
             <DriverContainer currentDriver={currentDriver}/>
-            <Pagination totalPages={totalPages} currentPage = {currentPage} pageHandler={pageHandler}/>
+            <Pagination totalPages={totalPages} currentPage = {currentPage} pageHandler={pageHandler} startPage={startPage} setStartPage={setStartPage} pagesToShow={pagesToShow}/>
         </div>
     )
 };
