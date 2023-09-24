@@ -1,0 +1,99 @@
+.contenedor-detail{
+    position:relative;
+    display:inline-flex;
+    flex-direction: row;
+    width: 80%;
+    height: auto;
+    border: 2px dotted red;
+    margin: 5rem;
+}
+.contenedor-imagen-detail{
+    width: auto;
+    height: 100%;
+    margin:1rem;
+    padding:0px;
+}
+.imagen-detail{
+
+    width: auto;
+    height: 30rem;
+    max-height: 100%;
+    margin:0px;
+    padding: 0px;
+  }
+.contenedor-texto-detail{
+    display:flex;
+    flex-direction: column; 
+    margin:0;
+}
+
+.titulo-detail h2, .id-detail p {
+    margin: 0;
+    padding: 0;
+}
+.origin-detail{
+    background-color: red;
+    margin-top: 1rem;
+    width: 4rem;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.origin-detail p{
+   color:white;
+   font-size:0.9rem;
+   padding: 0.2rem;
+
+}
+.titulo-detail{
+    display: flex;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.titulo-detail h2{
+    color:red;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+.id-detail{
+    display: flex;
+    margin-top: 0;
+    padding-top: 0;
+}
+.id-detail p {
+    color:grey;
+    font-style: italic;
+    font-size: 0.8rem;
+    font-weight:200;
+}
+.texto-detail p{
+    color:black;
+    font-style: normal;
+    font-size: 0.9rem;
+    text-align: justify;
+    padding-right: 30px;
+
+}
+.back-button{
+    width: 80px;
+    background-color: red;
+    padding: 5px;
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    color: white;
+    border: none;
+    transition: background-color 0.5s, color 0.5s;
+  }
+  .back-button:hover{
+    background-color: white;
+    color: red;
+    border: solid red;
+  }
+  .back-button:active {
+    position: absolute;
+    background-color:  red;
+    color: white;
+    border: solid red;
+  }

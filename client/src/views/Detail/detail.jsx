@@ -1,7 +1,7 @@
+import './detail.css'
 import {useEffect} from 'react'
-import {useParams} from 'react-router-dom'
-import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { useDispatch } from 'react-redux';
+import {useParams,NavLink } from 'react-router-dom'
+import { useDispatch,useSelector } from 'react-redux';
 import {getDetailById, clearDetail} from '../../redux/actions'
 const Detail=()=>{
 
@@ -18,14 +18,29 @@ const Detail=()=>{
     }
 
     return(
-        <div key={driverDetail.id}>
-            <h3>{`${driverDetail.name} ${driverDetail.surname}`}</h3>
-            <img src={driverDetail.image}/>
-            <p>Nationality:{driverDetail.nationality}</p>
-            <p>Description:{driverDetail.description}</p>
-            <p>Date of bird:{driverDetail.dob}</p>
-            <p>Teams:{driverDetail.teams}</p>
-            <p>Origin:{driverDetail.origin}</p>
+        <div className='contenedor-detail' key={driverDetail.id}>
+            <div className='contenedor-imagen-detail'>
+                <img className='imagen-detail' src={driverDetail.image}/>
+                </div>
+            <div className='contenedor-texto-detail'>
+              <div className='origin-detail'>
+                <p>{driverDetail.origin}</p>
+                </div>
+            <div className='titulo-detail'>
+                <h2>{`${driverDetail.name} ${driverDetail.surname}`}</h2></div>
+            <div className='id-detail'>
+                <p>ID:{driverDetail.id}</p>
+                </div>
+            <div className='texto-detail'>
+                <p>Nationality: {driverDetail.nationality}</p>
+                <p>Description: {driverDetail.description}</p>
+                <p>Date of birth: {driverDetail.dob}</p>
+                <p>Teams: {driverDetail.teams}</p>
+                </div>
+
+            <div><NavLink to='/home'><button className='back-button'>Back</button></NavLink></div>
+            </div>
+            
         </div>
     )
 };

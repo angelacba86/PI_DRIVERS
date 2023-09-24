@@ -10,9 +10,9 @@ const Driver=({id,image,name,teams,origin,dob,surname})=>{
             <div className='origin'><p>{origin}</p></div>
             <img className='imagen'src={image} alt={name}/></div>
         <div className='texto-contenedor'>
-        <h3>{`${name} ${surname}`}</h3>
+        <h3><span>{`  ${name} ${surname}  `}</span></h3>
         <p>Teams:{teams}</p>
-        <NavLink to={`${id}`}><button className='detail-button'>more...</button></NavLink>
+        <NavLink to={`${id}`}><button className='detail-button'>more</button></NavLink>
         </div>
         </div>
     )
