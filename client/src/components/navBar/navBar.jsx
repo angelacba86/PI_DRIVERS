@@ -2,15 +2,13 @@
 import '../navBar/navBar.css'
 import { Link } from 'react-router-dom';
 import { useLocation  } from 'react-router-dom';
-
 import SearchBar from '../searchBar/searchBar';
-import AlphaOrder from '../order/alphaOrder';
-import DateOrder from '../order/dateOrder';
+import Order from '../order/Order';
 import ByTeams from '../filters/byTeams';
 import ByOrigin from '../filters/byOrigin';
 
 
-const NavBar= ({name,setName, setCurrentPage})=>{
+const NavBar= ({name,setName, setCurrentPage, setLastFilterApplied})=>{
 
     const { pathname } = useLocation();
     
@@ -24,10 +22,9 @@ const NavBar= ({name,setName, setCurrentPage})=>{
             </div>
             <div className='navBarFiltros'>
             {pathname ==='/home' && <>
-            <AlphaOrder/>
-            <DateOrder/>
-            <ByTeams setCurrentPage={setCurrentPage}/>
-            <ByOrigin setCurrentPage={setCurrentPage}/>
+            <Order/>
+            <ByTeams setCurrentPage={setCurrentPage}  setLastFilterApplied={setLastFilterApplied}/>
+            <ByOrigin setCurrentPage={setCurrentPage} setLastFilterApplied={setLastFilterApplied}/>
             <SearchBar name={name} setName={setName} setCurrentPage={setCurrentPage} />
             </>}
             </div>

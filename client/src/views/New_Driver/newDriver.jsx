@@ -26,6 +26,8 @@ const NewDriver= ()=>{
   });
  const [errors,setErrors]=useState({});
 
+ const [sendForm, setSendForm] = useState("");
+
  const handleInputChange= (event) => {  
   const {name,value}=event.target
   if(name==='teams'){
@@ -55,6 +57,7 @@ const NewDriver= ()=>{
   const handleSubmit = (event)=>{
     event.preventDefault()
     dispatch(postNewDriver(form))
+    setSendForm('Form successfully submitted')
     setForm({
       name: '',
       surname: '',
@@ -75,8 +78,9 @@ const handleRemove = (teamToRemove) => {
 };
 
     return(
-        <div>
+        <div className='form-container'>
             <h3>Create a new driver</h3>
+  <div>
             <form onSubmit={handleSubmit}>
   <label className="form-label" >Name: </label>
   <input className="form-input" type="text" name="name" value={form.name} onChange={handleInputChange}/>
@@ -103,20 +107,22 @@ const handleRemove = (teamToRemove) => {
   <label className='form-error'>{errors.description}</label>
 
   <label className="form-label">Choose your team(s): </label>
-
   <select multiple className="form-input-date" name="teams" value={form.teams}  onChange={handleInputChange}>
-  <option value="" defaultValue>---All Teams---</option>
+  <option value="" disabled>{"---Choose your Team(s)---"}</option>
   {teamList?.map(team => (
                <option key={team.id} value={team.name}>{team.name}</option>
             ))}
   </select>
   
   {form.teams?.map(select =>(
-    <button key={select} id={select} onClick={() => handleRemove(select)}>{select}</button>
-  ))}
-  <label className='form-error'>{errors.teams}</label><br/>
-  <button className="form-button">Create a Driver</button>
+    <button className="form-chosen-teams" key={select} id={select} onClick={() => handleRemove(select)}>{`${select} x`}</button>
+  ))}<br/>
+  <label className='form-error'>{errors.teams}</label><br/><br/>
+  <button disabled={Object.keys(errors).length > 0 || Object.values(form).some(value => !value)} 
+  className={`form-button ${Object.keys(errors).length > 0 || Object.values(form).some(value => !value) ? 'disable' : 'active'}`}>Create a Driver</button><br/>
+  <label className='form-sendForm'>{sendForm}</label>
 </form>
+</div>
         </div>
     )
 };

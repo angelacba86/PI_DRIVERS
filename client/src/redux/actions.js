@@ -6,7 +6,7 @@ import { GET_ALL_DRIVERS,
          FILTER_BY_TEAMS,
          FILTER_BY_ORIGIN,
          TEAM_LIST,
-         NEW_DRIVER
+         NEW_DRIVER,
  } from "./actions_types";
 import axios from 'axios'
 

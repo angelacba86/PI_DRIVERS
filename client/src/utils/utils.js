@@ -26,8 +26,10 @@ export const validate = (values) => {
         errors.nationality = "Numbers are not allowed";
     }
     // image:
-    if (!regexImage.test(values.image)) {
-        errors.image = "Invalid URL format";
+    if(values.image){
+        if (!regexImage.test(values.image)) {
+            errors.image = "Invalid URL format";
+        }
     }
     // dob:
     if (!values.dob) {
@@ -48,8 +50,7 @@ export const validate = (values) => {
         errors.description = "The description must have at least 10 characters";
     }
     // teams:
-    
-    if (!values.teams) {
+    if (!values.teams.length) {
         errors.teams = "Teams are required";
     }
     return errors;

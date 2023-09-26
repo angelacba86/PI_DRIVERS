@@ -19,6 +19,7 @@ const getAllDriversCtrl=async()=>{
   }))
 
   const drivers = await Driver.findAll({ include: Team });
+  console.log(drivers)
   const driversWithTeams = drivers.map(driver => {
     return {
       id: driver.id,

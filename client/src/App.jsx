@@ -12,12 +12,14 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1); 
   const [startPage, setStartPage] = useState(1);
   const [name,setName] = useState("");
+  const [lastFilterApplied, setLastFilterApplied] = useState(null);
+
   return (
     <div>
-      {pathname !== '/' && <NavBar setCurrentPage={setCurrentPage} currentPage={currentPage} name={name} setName={setName} />}
+      {pathname !== '/' && <NavBar setCurrentPage={setCurrentPage} currentPage={currentPage} name={name} setName={setName} lastFilterApplied={lastFilterApplied} setLastFilterApplied={setLastFilterApplied} />}
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route path='/home' element={<Home setCurrentPage={setCurrentPage} currentPage={currentPage} startPage={startPage} setStartPage={setStartPage} />} />
+        <Route path='/home' element={<Home setCurrentPage={setCurrentPage} currentPage={currentPage} startPage={startPage} setStartPage={setStartPage} lastFilterApplied={lastFilterApplied} />} />
         <Route path='/home/:id' element={<Detail />} />
         <Route path='/newDriver' element={<NewDriver />} />
       </Routes>

@@ -1,0 +1,20 @@
+
+.orders-font{
+    color:rgb(228, 226, 226);
+    font-size: small;
+   }
+
+.orders-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.orders-container > div {
+    display: flex;
+    justify-content: space-between;
+}
+.orders-container > div > select {
+    margin-right: 20px;
+    margin-top: 10px;
+}

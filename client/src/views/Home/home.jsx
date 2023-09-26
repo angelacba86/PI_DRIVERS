@@ -6,10 +6,13 @@ import { getAllDrivers } from '../../redux/actions';
 import DriverContainer from '../../components/driversContainer/driversContainer';
 import Pagination from '../../components/pagination/pagination';
 
-const Home=({currentPage,setCurrentPage,startPage,setStartPage})=>{
+const Home=({currentPage,setCurrentPage,startPage,setStartPage,lastFilterApplied})=>{
 
     const allDrivers = useSelector(state=> state.allDrivers)
-    const filteredDrivers = useSelector(state => state.filteredDrivers)
+    const filteredByTeams = useSelector(state => state.filteredByTeams)
+    const filteredByOrigin= useSelector(state => state.filteredByOrigin)
+    
+    
     const dispatch= useDispatch();
 
     ///---Get all Drivers---///
@@ -19,7 +22,21 @@ const Home=({currentPage,setCurrentPage,startPage,setStartPage})=>{
 
     ///--- Pagination ---///
 
-    const driversToShow= filteredDrivers?.length ? filteredDrivers : allDrivers;
+    let driversToShow;
+
+    if (lastFilterApplied === 'teams') {
+        driversToShow = filteredByTeams;
+    } else if (lastFilterApplied === 'origin') {
+        driversToShow = filteredByOrigin;
+    } else {
+        driversToShow = allDrivers;
+    }
+//     const driversToShow =
+//   (filteredByTeams.length > 0 && filteredByTeams) ||
+//   (filteredByOrigin.length > 0 && filteredByOrigin) ||
+//   allDrivers;
+//     console.log(lastFilterApplied)
+  
     const driversPerPage =9;
     const pagesToShow = 12;
     const totalPages= Math.ceil(driversToShow.length / driversPerPage);

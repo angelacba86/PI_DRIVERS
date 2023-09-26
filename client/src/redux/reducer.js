@@ -1,5 +1,6 @@
 /* eslint-disable no-fallthrough */
 /* eslint-disable no-case-declarations */
+
 import { GET_ALL_DRIVERS,
          GET_DRIVERS_BY_NAME,
         DETAIL_BY_ID,
@@ -7,15 +8,16 @@ import { GET_ALL_DRIVERS,
         TEAM_LIST,
         FILTER_BY_TEAMS,
         FILTER_BY_ORIGIN,
-        ORDER_BY
+        ORDER_BY,
      } from "./actions_types";
 
 let initialState={ allDrivers:[], 
                    byDetail:[],
                    allDriversCopy: [],
-                   filteredDrivers:[],
+                   filteredByTeams:[],
+                   filteredByOrigin:[],
                    teamList:[],
-                   noInfo:""
+                   noInfo:"",
                  };
 
 const reducer = ( state= initialState, action)=>{
@@ -23,15 +25,18 @@ const reducer = ( state= initialState, action)=>{
     case GET_ALL_DRIVERS:
     return{
      ...state,
-     allDrivers:action.payload
+     allDrivers:action.payload,
+     allDriversCopy:action.payload,
+
         }
     case GET_DRIVERS_BY_NAME:
         return{
             ...state,
-            allDrivers:action.payload.length>0 ? action.payload : [],
-            filteredDrivers: [],
+            allDrivers:action.payload.length > 0 ? action.payload : [],
+            filteredByTeams: action.payload,
+            filteredByOrigin:action.payload,
             results: action.payload.length > 0 ?`${action.payload.length} results for "${action.searchingName}"` : "",
-            noInfo: action.payload.length === 0 ? "no driversfound" : ""
+            noInfo: action.payload.length === 0 ? "no drivers coincidence" : ""
         }
     case DETAIL_BY_ID:
         return {
@@ -50,13 +55,12 @@ const reducer = ( state= initialState, action)=>{
         }   
     case FILTER_BY_TEAMS:
         const teamName= action.payload;
-        const teamDriversToShow= state.filteredDrivers?.length > 0 ? state.filteredDrivers : state.allDrivers
         if(teamName ==="") return {
             ...state,
-            filteredDrivers: state.allDrivers
+            filteredByTeams:state.allDriversCopy,
         } 
         else{
-            const filteredDrivers =  teamDriversToShow?.filter(driver => {
+            const filteredTeams =  state.allDriversCopy.filter(driver => {
                 const teams = driver.teams?.split(',').map(team => team.trim().toLowerCase());
                 const lowercaseTeamName = teamName.toLowerCase();              
                 return teams?.includes(lowercaseTeamName);
@@ -64,35 +68,38 @@ const reducer = ( state= initialState, action)=>{
               
             return {
             ...state,
-            filteredDrivers,
-            noInfo: filteredDrivers.length === 0 ? "No Drivers found with this temperament" : ""
+            filteredByTeams:filteredTeams,
+            noInfo: filteredTeams.length === 0 ? "No Drivers found with this temperament" : ""
           }
         }
     case FILTER_BY_ORIGIN:
-        const origin=action.payload;
-        const originDriverToShow= state.filteredDrivers?.length > 0 ? state.filteredDrivers : state.allDrivers
-    if(origin ==="" ){ return {
+        const origin=action.payload
+    if(origin ==="" ){ 
+        return {
         ...state,
-        filteredDrivers:state.AllDrivers
+        filteredByOrigin:state.filteredByTeams,
+
+        
          } 
     }else if(origin==="Created"){
-        const originbyDb= originDriverToShow?.filter(driver => driver.origin ==="Created");
+        const originbyDb= state.filteredByTeams?.filter(driver => driver.origin ==="Created");
+        console.log("Created",originbyDb)
         return{
             ...state,
-        filteredDrivers: originbyDb,
+        filteredByOrigin: originbyDb,
         noInfo: originbyDb.length===0 ? "No created drivers were found" : ""
         }
-    } else if (origin==="Api"){
-    const originByApi= originDriverToShow?.filter(driver=> driver.origin === "Api" )
+    } else {
+    const originByApi= state.filteredByTeams?.filter(driver=> driver.origin === "Api" )
     return {
         ...state,
-        filteredDrivers: originByApi,
+        filteredByOrigin: originByApi,
         noInfo: originByApi.length ===0 ? "No Api drivers were found" : "" 
     }}
 
     case ORDER_BY:
+        let driversToOrder = state.filteredByOrigin.length < state.filteredByTeams.length ? state.filteredByOrigin : state.filteredByTeams.length >0 && state.filteredByTeams < state.allDrivers.length ? state.filteredByTeams : state.allDrivers;
 
-        const driversToOrder= state.filteredDrivers.length > 0 ? state.filteredDrivers : state.allDrivers;
         if(action.payload === 'az'){
             const orderAZ=[...driversToOrder].sort((a,b)=>{
                 const nameA= a.name.normalize('NFC').replace(/[\u0300-\u036f]/g, '').toLowerCase()  
