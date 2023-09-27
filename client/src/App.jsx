@@ -8,6 +8,7 @@ import NewDriver from './views/New_Driver/newDriver';
 import NavBar from './components/navBar/navBar';
 
 function App() {
+  
   const { pathname } = useLocation();
   const [currentPage, setCurrentPage] = useState(1); 
   const [startPage, setStartPage] = useState(1);
@@ -16,10 +17,20 @@ function App() {
 
   return (
     <div>
-      {pathname !== '/' && <NavBar setCurrentPage={setCurrentPage} currentPage={currentPage} name={name} setName={setName} lastFilterApplied={lastFilterApplied} setLastFilterApplied={setLastFilterApplied} />}
+      {pathname !== '/' && <NavBar 
+      setCurrentPage={setCurrentPage} 
+      currentPage={currentPage} 
+      name={name} setName={setName} 
+      lastFilterApplied={lastFilterApplied} 
+      setLastFilterApplied={setLastFilterApplied} />}
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route path='/home' element={<Home setCurrentPage={setCurrentPage} currentPage={currentPage} startPage={startPage} setStartPage={setStartPage} lastFilterApplied={lastFilterApplied} />} />
+        <Route path='/home' element={<Home 
+        setCurrentPage={setCurrentPage} 
+        currentPage={currentPage} 
+        startPage={startPage} 
+        setStartPage={setStartPage} 
+        lastFilterApplied={lastFilterApplied} />} />
         <Route path='/home/:id' element={<Detail />} />
         <Route path='/newDriver' element={<NewDriver />} />
       </Routes>

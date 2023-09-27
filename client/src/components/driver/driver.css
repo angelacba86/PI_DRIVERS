@@ -46,6 +46,7 @@
   }
   .texto-contenedor p {
     margin: 10px;
+    white-space: pre-wrap;
   }
   .texto-contenedor h3 span{
     border-bottom: 2px dashed white;

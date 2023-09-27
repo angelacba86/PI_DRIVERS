@@ -2,4 +2,11 @@
 .filters{
  color:rgb(228, 226, 226);
  font-size: small;
+ text-align: center;
+}
+.filter-origin{
+    width: 80px;
+}
+.filter-team{
+    width: 120px;
 }

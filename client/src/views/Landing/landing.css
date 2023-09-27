@@ -1,0 +1,61 @@
+.landing-body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(33, 32, 32);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.landing {
+    text-align: center;
+    color: white;
+}
+
+.logo {
+    width: 300px; /* Ajusta el tamaño del logo según tus necesidades */
+    height: 100px; /* Ajusta el tamaño del logo según tus necesidades */
+    margin: 0 auto;
+}
+
+.frase {
+    font-size: 24px; /* Ajusta el tamaño de la frase según tus necesidades */
+}
+
+.boton {
+    display: inline-block;
+    margin-top: 20px; /* Espacio entre la frase y el botón */
+    padding: 10px 20px;
+    background-color: #007bff; /* Color de fondo del botón */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px; /* Ajusta el tamaño del texto del botón según tus necesidades */
+}
+
+.button{
+    display: inline-block;
+    margin-top: 20px; /* Espacio entre la frase y el botón */
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: rgb(193, 11, 11);
+    color: white;
+    border: none;
+    transition: background-color 0.5s, color 0.5s;
+    -webkit-box-shadow: 5px 5px 29px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 29px -5px rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 29px -5px rgba(0,0,0,0.75);
+  }
+  .button:hover{
+    background-color: white;
+    color: rgb(193, 11, 11);
+    border: none;
+    transition: background-color 0.5s, color 0.5s;
+  }
+  .button:active {
+    position: relative;
+    top: 2px;
+    background-color:  rgb(193, 11, 11);
+    color: white;
+  }

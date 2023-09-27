@@ -7,6 +7,7 @@ import { GET_ALL_DRIVERS,
          FILTER_BY_ORIGIN,
          TEAM_LIST,
          NEW_DRIVER,
+         REFRESH
  } from "./actions_types";
 import axios from 'axios'
 
@@ -93,3 +94,8 @@ export const postNewDriver=(form)=> async dispatch => {
         throw new Error(error.message)
     }
 } 
+export const refresh = ()=> {
+    return({
+        type:REFRESH,
+    })
+}

@@ -10,13 +10,14 @@ const ByOrigin= ({setCurrentPage, setLastFilterApplied})=>{
       dispatch(filterByOrigin(origin))
       setCurrentPage(1)
       setLastFilterApplied("origin")
+      
    }
 
  return (
     <div>
       <label className="filters">Filter by Origin:</label><br/>
-      <select onChange={handleSelect} className='select'>
-         <option value=''>All Origin</option>
+      <select onChange={handleSelect} className='filter-origin'>
+         <option selected value=''>All Origin</option>
          <option value='Api'>Api</option>
          <option value='Created'>Created</option>
       </select>

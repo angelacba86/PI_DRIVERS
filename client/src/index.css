@@ -19,3 +19,7 @@ select option:first-child {
 select option {
   color: #333;
 }
+select option:checked {
+  background-color: grey; /* Color de fondo cuando seleccionado */
+  color: #fff;
+}

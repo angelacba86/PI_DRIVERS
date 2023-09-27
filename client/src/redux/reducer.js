@@ -9,6 +9,7 @@ import { GET_ALL_DRIVERS,
         FILTER_BY_TEAMS,
         FILTER_BY_ORIGIN,
         ORDER_BY,
+        REFRESH
      } from "./actions_types";
 
 let initialState={ allDrivers:[], 
@@ -27,6 +28,7 @@ const reducer = ( state= initialState, action)=>{
      ...state,
      allDrivers:action.payload,
      allDriversCopy:action.payload,
+     filteredByTeams:action.payload
 
         }
     case GET_DRIVERS_BY_NAME:
@@ -35,7 +37,6 @@ const reducer = ( state= initialState, action)=>{
             allDrivers:action.payload.length > 0 ? action.payload : [],
             filteredByTeams: action.payload,
             filteredByOrigin:action.payload,
-            results: action.payload.length > 0 ?`${action.payload.length} results for "${action.searchingName}"` : "",
             noInfo: action.payload.length === 0 ? "no drivers coincidence" : ""
         }
     case DETAIL_BY_ID:
@@ -55,12 +56,13 @@ const reducer = ( state= initialState, action)=>{
         }   
     case FILTER_BY_TEAMS:
         const teamName= action.payload;
+        
         if(teamName ==="") return {
             ...state,
-            filteredByTeams:state.allDriversCopy,
+            filteredByTeams:state.allDrivers,
         } 
         else{
-            const filteredTeams =  state.allDriversCopy.filter(driver => {
+            const filteredTeams =  state.allDrivers.filter(driver => {
                 const teams = driver.teams?.split(',').map(team => team.trim().toLowerCase());
                 const lowercaseTeamName = teamName.toLowerCase();              
                 return teams?.includes(lowercaseTeamName);
@@ -69,7 +71,7 @@ const reducer = ( state= initialState, action)=>{
             return {
             ...state,
             filteredByTeams:filteredTeams,
-            noInfo: filteredTeams.length === 0 ? "No Drivers found with this temperament" : ""
+            noInfo: filteredTeams.length === 0 ? "No Drivers found with this team" : ""
           }
         }
     case FILTER_BY_ORIGIN:
@@ -79,11 +81,10 @@ const reducer = ( state= initialState, action)=>{
         ...state,
         filteredByOrigin:state.filteredByTeams,
 
-        
          } 
     }else if(origin==="Created"){
         const originbyDb= state.filteredByTeams?.filter(driver => driver.origin ==="Created");
-        console.log("Created",originbyDb)
+        
         return{
             ...state,
         filteredByOrigin: originbyDb,
@@ -98,30 +99,42 @@ const reducer = ( state= initialState, action)=>{
     }}
 
     case ORDER_BY:
-        let driversToOrder = state.filteredByOrigin.length < state.filteredByTeams.length ? state.filteredByOrigin : state.filteredByTeams.length >0 && state.filteredByTeams < state.allDrivers.length ? state.filteredByTeams : state.allDrivers;
+        let driversToOrder = state.filteredByOrigin.length > 0 && state.filteredByOrigin.length < state.filteredByTeams.length ? state.filteredByOrigin 
+        : state.filteredByTeams.length > 0 && state.filteredByTeams.length < state.allDrivers.length ? state.filteredByTeams 
+        : state.allDrivers;
 
-        if(action.payload === 'az'){
+        if(action.payload===""){
+        return {
+            ...state,
+            allDrivers:driversToOrder,
+            filteredByOrigin:driversToOrder,
+            filteredByTeams:driversToOrder
+           }
+       }else if(action.payload === 'az'){
             const orderAZ=[...driversToOrder].sort((a,b)=>{
-                const nameA= a.name.normalize('NFC').replace(/[\u0300-\u036f]/g, '').toLowerCase()  
-                const nameB= b.name.normalize('NFC').replace(/[\u0300-\u036f]/g, '').toLowerCase()
-                return nameA < nameB ? -1 : 1                
+                const nameA= `${a.name} ${a.surname}`.toLocaleLowerCase()
+                const nameB= `${b.name} ${b.surname}`.toLocaleLowerCase()
+                return nameA.localeCompare(nameB)              
             }) 
             return{
                 ...state,
                 allDrivers: orderAZ,
-                filteredDrivers: orderAZ,
+                filteredByOrigin: orderAZ,
+                filteredByTeams: orderAZ,
             }
         }else if (action.payload === "za"){
             const orderZA= [...driversToOrder].sort((a,b)=>{
-                const nameA= a.name.normalize('NFC').replace(/[\u0300-\u036f]/g, '').toLowerCase()  
-                const nameB= b.name.normalize('NFC').replace(/[\u0300-\u036f]/g, '').toLowerCase()
-                return nameA > nameB ? -1 : 1
+                const nameA= `${a.name} ${a.surname}`.toLocaleLowerCase()
+                const nameB= `${b.name} ${b.surname}`.toLocaleLowerCase()
+                return  nameB.localeCompare(nameA)            
             }) 
             
             return {
                 ...state,
                 allDrivers: orderZA,
-                filteredDrivers: orderZA
+                filteredByOrigin: orderZA,
+                filteredByTeams: orderZA
+
             }
         }else if (action.payload === "date_asc"){
                 const orderDateAsc= [...driversToOrder].sort((a,b)=>{
@@ -132,7 +145,8 @@ const reducer = ( state= initialState, action)=>{
              return {
                  ...state,
                  allDrivers: orderDateAsc,
-                filteredDrivers: orderDateAsc
+                 filteredByOrigin: orderDateAsc,
+                 filteredByTeams: orderDateAsc
             }
         }else if (action.payload === "date_desc"){
             const orderDateDesc= [...driversToOrder].sort ((a,b)=>{
@@ -143,8 +157,16 @@ const reducer = ( state= initialState, action)=>{
             return {
                 ...state,
                 allDrivers: orderDateDesc,
-                filteredDrivers:orderDateDesc
+                filteredByOrigin: orderDateDesc,
+                filteredByTeams: orderDateDesc
             }
+        }
+    case REFRESH:
+        return{
+            allDrivers: state.allDriversCopy,
+            filteredByOrigin:state.allDriversCopy,
+            filteredByTeams: state.allDriversCopy,
+            teamList: []
         }
 
     default:

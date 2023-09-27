@@ -22,7 +22,7 @@
     color: red;
     margin: 2rem;
     position: relative;
-    text-decoration: none; /* Evita que el enlace tenga subrayado predeterminado */
+    text-decoration: none;
 }
 
 .menu a::after {
@@ -57,14 +57,3 @@
     padding: 2%;
 }
 
-/* 
-max-width: 1280px;
-min-width: 320px; */
-
-/* .navBarMenus{
-    display: flex;
-    align-items: center;
-    gap:1em;
-    margin: 0 2%;
-    padding: 2%;
-} */

@@ -6,4 +6,5 @@ export const ORDER_BY = 'ORDER_BY';
 export const TEAM_LIST = 'TEAM_LIST';
 export const FILTER_BY_TEAMS = 'FILTER_BY_TEAMS';
 export const FILTER_BY_ORIGIN = 'FILTER_BY_DATE';
-export const NEW_DRIVER='NEW_DRIVER'
+export const NEW_DRIVER='NEW_DRIVER';
+export const REFRESH='REFRESH';

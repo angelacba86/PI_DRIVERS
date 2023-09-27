@@ -19,7 +19,7 @@ const getAllDriversCtrl=async()=>{
   }))
 
   const drivers = await Driver.findAll({ include: Team });
-  console.log(drivers)
+
   const driversWithTeams = drivers.map(driver => {
     return {
       id: driver.id,
@@ -115,20 +115,20 @@ const getDetailCtrl=async(id)=>{
 ///---post a new Driver ---///
 
 const postNewDriverCtrl= async (name,surname,description,image,nationality,dob,teams)=>{
-   const allDrivers = await getAllDriversCtrl();
-   if(!name||!surname||!description||!nationality||!dob||!Array.isArray(teams)||teams.length===0){
-    throw new Error('You must fill out all the mandatory fields')
-   }else if (allDrivers.find(driver=> driver.name===name && driver.surname===surname)){
-    throw new Error('This driver already existed')}
-    else {
-      const newDriver= await Driver.create({
-      name,surname,description,image,nationality,dob
-  }) 
-  // ------------------------------------------------------------------------------------------//
+  const allDrivers = await getAllDriversCtrl();
+  if(!name||!surname||!description||!nationality||!dob||!Array.isArray(teams)||teams.length===0){
+   throw new Error('You must fill out all the mandatory fields')
+  }else if (allDrivers.find(driver=> driver.name===name && driver.surname===surname)){
+   throw new Error('This driver already existed')}
+   else {
+     const newDriver= await Driver.create({
+     name,surname,description,image,nationality,dob
+ }) 
+ // ------------------------------------------------------------------------------------------//
 const teamsNames= teams.includes(',') ? teams.split(',').map(t=>t.trim()): [teams]
-  teamsNames.forEach(async team=>{ 
-  let relatedTeams= await Team.findAll({where:{name:team}})
-  await newDriver.addTeams(relatedTeams)
+ teamsNames.forEach(async team=>{ 
+ let relatedTeams= await Team.findAll({where:{name:team}})
+ await newDriver.addTeams(relatedTeams)
 }) 
 ;
 return newDriver;

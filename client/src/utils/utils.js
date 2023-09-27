@@ -17,6 +17,8 @@ export const validate = (values) => {
     } else if (values.surname.length < 3 || values.surname.length > 15) {
         errors.surname = "Surname must have between 03 and 15 characters.";
     }
+    //name and surname:
+
     // nationality:
     if (!values.nationality) {
         errors.nationality = "Nationality is required";
